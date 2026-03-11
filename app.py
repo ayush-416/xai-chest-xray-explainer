@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import tensorflow as tf
 import numpy as np
 import cv2
+import os
 from natural_explanation import generate_explanation
 
 app = Flask(__name__)
@@ -33,7 +34,6 @@ def predict():
 
     label = "Cardiomegaly" if class_id==1 else "Normal"
 
-    # Example JSON
     json_output = {
         "prediction": label,
         "confidence": confidence,
@@ -52,4 +52,5 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=False)
