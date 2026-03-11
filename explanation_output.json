@@ -1,0 +1,7 @@
+{
+  "prediction": "Cardiomegaly",
+  "confidence": 0.9400742650032043,
+  "heart_overlap_average": 0.557692289352417,
+  "agreement_score": 1.0,
+  "trust_level": "Moderate"
+}

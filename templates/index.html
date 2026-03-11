@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>XAI Chest X-Ray Analyzer</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>Explainable AI for Chest X-Ray Diagnosis</h1>
+<p>Cardiomegaly Detection with Trust Evaluation</p>
+</div>
+
+<div class="container">
+
+<div class="about">
+
+<h2>About This System</h2>
+
+<p>
+This system uses a Convolutional Neural Network (CNN) to detect
+<strong>Cardiomegaly (enlarged heart)</strong> from chest X-ray images.
+To improve trust in AI decisions, multiple Explainable AI (XAI) methods
+such as <b>Saliency Maps, Grad-CAM, LIME, and SHAP</b> are used.
+</p>
+
+<p>
+The system also evaluates whether the model focuses on clinically relevant
+regions of the image and generates a natural language explanation using
+a large language model.
+</p>
+
+</div>
+
+
+<div class="upload-box">
+
+<h2>Upload Chest X-Ray</h2>
+
+<input type="file" id="imageInput">
+
+<br><br>
+
+<button onclick="upload()">Analyze Image</button>
+
+</div>
+
+
+<div class="result" id="result"></div>
+
+<div class="explanation" id="explanation"></div>
+
+</div>
+
+<script>
+
+function upload(){
+
+let file = document.getElementById("imageInput").files[0]
+
+let formData = new FormData()
+formData.append("image",file)
+
+fetch("/predict",{
+method:"POST",
+body:formData
+})
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("result").innerHTML =
+"<b>Prediction:</b> "+data.prediction+
+"<br><b>Confidence:</b> "+data.confidence
+
+document.getElementById("explanation").innerHTML =
+"<b>Explanation:</b><br>"+data.explanation
+
+})
+
+}
+
+</script>
+
+</body>
+</html>

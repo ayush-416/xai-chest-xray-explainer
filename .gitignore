@@ -1,0 +1,9 @@
+#dataset
+train/
+test/
+output/
+presentation/
+references/
+
+#files
+model_error.xlx
